@@ -26,6 +26,7 @@ class AP_BattMonitor_SMBus;
 class AP_BattMonitor_SMBus_Solo;
 class AP_BattMonitor_SMBus_Maxell;
 class AP_BattMonitor_UAVCAN;
+class AP_BattMonitor_i2c;
 
 class AP_BattMonitor
 {
@@ -38,6 +39,7 @@ class AP_BattMonitor
     friend class AP_BattMonitor_Sum;
     friend class AP_BattMonitor_FuelFlow;
     friend class AP_BattMonitor_FuelLevel_PWM;
+    friend class AP_BattMonitor_i2c;
 
 public:
 
@@ -144,8 +146,11 @@ public:
     const cells & get_cell_voltages(const uint8_t instance) const;
 
     // temperature
-    bool get_temperature(float &temperature) const { return get_temperature(temperature, AP_BATT_PRIMARY_INSTANCE); };
+    bool get_temperature(float &temperature) const { return get_temperature(temperature, AP_BATT_PRIMARY_INSTANCE); }
     bool get_temperature(float &temperature, const uint8_t instance) const;
+
+    // cycle count
+    bool get_cycle_count(uint8_t instance, uint16_t &cycles) const;
 
     // get battery resistance estimate in ohms
     float get_resistance() const { return get_resistance(AP_BATT_PRIMARY_INSTANCE); }
